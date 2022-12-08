@@ -97,6 +97,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
         return template.query(sql, itemRowMapper(), param.toArray());
     }
 
+    //ResultSet 구문을 돌려주는 작업을 해준다.
     private RowMapper<Item> itemRowMapper() {
         return ((rs, rowNum) -> {
             Item item = new Item();
