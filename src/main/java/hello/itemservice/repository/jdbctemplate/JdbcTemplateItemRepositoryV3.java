@@ -66,11 +66,14 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
 
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam) {
+        //저장하는 value 값은 컬럼 이름에 맞춰서 binding이 되지만
+        //key 값 같은 경우는 컬럼 이름과 동일하게 맞춰줘야한다.
+        //key : item_name value = itemName
         String sql = "update item set item_name=:item_name, price=:price," +
                 " quantity=:quantity where id=:id";
 
         SqlParameterSource param = new MapSqlParameterSource()
-                .addValue("itemName", updateParam.getItemName())
+                .addValue("item_name", updateParam.getItemName())
                 .addValue("price", updateParam.getPrice())
                 .addValue("quantity", updateParam.getQuantity())
                 .addValue("id", itemId);

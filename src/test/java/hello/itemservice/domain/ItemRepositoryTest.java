@@ -4,6 +4,7 @@ import hello.itemservice.repository.ItemRepository;
 import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
 import hello.itemservice.repository.memory.MemoryItemRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//ItemRepositoryTest 는 @SpringBootTest 를 사용한다. @SpringBootTest 는
+//@SpringBootApplication 를 찾아서 설정으로 사용한다
 @SpringBootTest
+@Slf4j
 class ItemRepositoryTest {
 
     @Autowired
@@ -46,7 +50,7 @@ class ItemRepositoryTest {
         Item item = new Item("item1", 10000, 10);
         Item savedItem = itemRepository.save(item);
         Long itemId = savedItem.getId();
-
+        log.info("itemId={}", itemId);
         //when
         ItemUpdateDto updateParam = new ItemUpdateDto("item2", 20000, 30);
         itemRepository.update(itemId, updateParam);
